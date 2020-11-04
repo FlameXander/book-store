@@ -1,0 +1,65 @@
+<div>
+    <h3>Фильтр</h3>
+    <form novalidate ng-submit="fillTable()">
+        <div class="form-group col-md-6">
+            <label for="filterTitle">Название</label>
+            <input class="form-control" type="text" ng-model="filter.title" id="filterTitle">
+        </div>
+        <div class="form-group row">
+            <div class="form-group col-md-3">
+                <label for="filterMinPrice">Минимальная цена</label>
+                <input class="form-control" type="number" ng-model="filter.min_price" id="filterMinPrice">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="filterMaxPrice">Максимальная цена</label>
+                <input class="form-control" type="number" ng-model="filter.max_price" id="filterMaxPrice">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="filterGenreId">Жанр</label>
+                <select class="form-control" ng-model="filter.genre_id" id="filterGenreId">
+                    <option>Любой</option>
+                    <option value="{{g.id}}" ng-repeat="g in GenresList">{{g.title}}</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit">Применить</button>
+        </div>
+    </form>
+
+    <h3>Список книг</h3>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Название</td>
+            <td>Жанр</td>
+            <td>Описание</td>
+            <td>Цена</td>
+            <td>Год издания</td>
+            <td>Автор</td>
+            <td>Действие</td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="b in BooksPage.content">
+            <td>{{b.title}}</td>
+            <td>{{b.genre}}</td>
+            <td>{{b.description}}</td>
+            <td>{{b.price}}</td>
+            <td>{{b.publishYear}}</td>
+            <td>{{b.authorName}}</td>
+            <td>
+                <button class="btn btn-primary to-cart-btn" ng-click="addToCartFunction(b)">Добавить</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in PaginationArray">
+                <a class="page-link" ng-click="fillTable(pageIndex)">{{pageIndex}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

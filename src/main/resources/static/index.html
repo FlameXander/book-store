@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Магазин книг</h1>
+    <div ng-controller="indexController">
+        <a class="btn btn-outline-warning" href="#!/auth">Войти или выйти</a>
+        <a class="btn btn-outline-warning" href="#!/">Главная</a>
+        <a class="btn btn-outline-warning" href="#!/books">Книги</a>
+        <a class="btn btn-outline-warning" href="#!/orders" ng-if="isUserLoggedIn()">Мои заказы</a>
+        <a class="btn btn-outline-warning" href="#!/cart">Корзина</a>
+    </div>
+
+
+    <ng-view></ng-view>
+
+    <script src="index.js"></script>
+    <script src="about/about.js"></script>
+    <script src="auth/auth.js"></script>
+    <script src="store/store.js"></script>
+    <script src="cart/cart.js"></script>
+    <script src="order_confirmation/order_confirmation.js"></script>
+    <script src="order_result/order_result.js"></script>
+    <script src="orders/orders.js"></script>
+</div>
+</body>
+</html>
