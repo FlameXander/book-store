@@ -36,14 +36,6 @@ public class SecurityTest {
     }
 
 //    @Test
-//    public void securityAccessDeniedTest() throws Exception {
-//        mockMvc.perform(get("/admin"))
-//                .andDo(print())
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("http://localhost/login"));
-//    }
-//
-//    @Test
 //    @WithMockUser(username = "+79380000000", roles = "ADMIN")
 //    // @WithAnonymousUser
 //    public void securityAccessAllowedTest() throws Exception {
@@ -51,7 +43,17 @@ public class SecurityTest {
 //                .andDo(print())
 //                .andExpect(status().is2xxSuccessful());
 //    }
-//
+
+//    Deprecated - Thymeleaf
+
+//    @Test
+//    public void securityAccessDeniedTest() throws Exception {
+//        mockMvc.perform(get("/admin"))
+//                .andDo(print())
+//                .andExpect(status().is3xxRedirection())
+//                .andExpect(redirectedUrl("http://localhost/login"));
+//    }
+
 //    @Test
 //    public void correctLogin() throws Exception {
 //        mockMvc.perform(formLogin("/authenticateTheUser").user("11111111").password("100"))
@@ -59,7 +61,7 @@ public class SecurityTest {
 //                .andExpect(status().is3xxRedirection())
 //                .andExpect(redirectedUrl("/"));
 //    }
-//
+
 //    @Test
 //    public void badCredentials() throws Exception {
 //        mockMvc.perform(formLogin("/authenticateTheUser").user("admin").password("100"))

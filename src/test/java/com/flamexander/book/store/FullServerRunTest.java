@@ -24,7 +24,7 @@ public class FullServerRunTest {
     @Test
     @WithMockUser(username = "Bob", roles = "USER")
     public void fullRestTest() {
-
+        // Spring page class ...
         List<Genre> genres = restTemplate.getForObject("/api/v1/genres", List.class);
         assertThat(genres).isNotNull();
         assertThat(genres).isNotEmpty();
