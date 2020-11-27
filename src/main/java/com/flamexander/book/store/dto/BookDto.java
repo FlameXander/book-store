@@ -40,6 +40,16 @@ public class BookDto {
     @Max(2050)
     private int publishYear;
 
+    public BookDto(Long id, @Size(min = 4, max = 255) String title, String genre, String description, String authorName, @Min(0) BigDecimal price, @Min(1900) @Max(2050) int publishYear) {
+        this.id = id;
+        this.title = title;
+        this.genre = genre;
+        this.description = description;
+        this.authorName = authorName;
+        this.price = price;
+        this.publishYear = publishYear;
+    }
+
     public BookDto(Book book) {
         this.id = book.getId();
         this.title = book.getTitle();

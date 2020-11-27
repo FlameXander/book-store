@@ -25,7 +25,7 @@ public class SecurityTest {
         mockMvc.perform(get("/api/v1/books"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(jsonPath("$.content").isArray());
     }
 
     @Test

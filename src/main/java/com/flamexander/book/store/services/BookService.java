@@ -5,6 +5,7 @@ import com.flamexander.book.store.dto.BookDto;
 import com.flamexander.book.store.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ import java.util.stream.Collectors;
 public class BookService {
     private final BookRepository bookRepository;
 
-    public Page<Book> findAll(Specification<Book> spec, int page, int size) {
-        return bookRepository.findAll(spec, PageRequest.of(page, size));
+    public Page<BookDto> findAll(Specification<Book> spec, int page, int size) {
+        Page<Book> content = bookRepository.findAll(spec, PageRequest.of(page, size));
+        Page<BookDto> out = new PageImpl<>(content.getContent().stream().map(BookDto::new).collect(Collectors.toList()), content.getPageable(), content.getTotalElements());
+        return out;
     }
 
     public Optional<Book> findById(Long id) {

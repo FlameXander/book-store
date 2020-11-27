@@ -3,6 +3,7 @@ package com.flamexander.book.store.controllers;
 import com.flamexander.book.store.dto.JwtRequest;
 import com.flamexander.book.store.dto.JwtResponse;
 import com.flamexander.book.store.configs.JwtTokenUtil;
+import com.flamexander.book.store.dto.RegUser;
 import com.flamexander.book.store.exceptions.BookServiceError;
 import com.flamexander.book.store.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +36,9 @@ public class AuthController {
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerNewUser(@RequestBody @Validated RegUser regUser) {
+//
+//    }
 }

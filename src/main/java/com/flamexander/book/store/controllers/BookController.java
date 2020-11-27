@@ -36,10 +36,7 @@ public class BookController {
         if (page < 1) {
             page = 1;
         }
-        BookFilter bookFilter = new BookFilter(requestParams);
-        Page<Book> content = bookService.findAll(bookFilter.getSpec(), page - 1, 5);
-        Page<BookDto> out = new PageImpl<>(content.getContent().stream().map(BookDto::new).collect(Collectors.toList()), content.getPageable(), content.getTotalElements());
-        return out;
+        return bookService.findAll(new BookFilter(requestParams).getSpec(), page - 1, 5);
     }
 
     @GetMapping("/{id}")

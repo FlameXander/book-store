@@ -1,49 +1,69 @@
 package com.flamexander.book.store;
 
 import com.flamexander.book.store.controllers.BookController;
+import com.flamexander.book.store.dto.BookDto;
+import com.flamexander.book.store.entities.Book;
+import com.flamexander.book.store.entities.Genre;
+import com.flamexander.book.store.services.BookService;
+import com.flamexander.book.store.services.GenreService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@WebMvcTest(controllers = BookController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc
 public class OnlyBookControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @MockBean
+    private GenreService genreService;
+
     @Test
-    public void ooo() throws Exception {
-        mvc.perform(get("/")).andExpect(status().isOk());
-    }
-//
-//    @MockBean
-//    private BookService bookService;
-//
-//    @Test
-//    public void getAllProductsTest() throws Exception {
-//        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+    @WithMockUser(username = "Bob", authorities = "USER")
+    public void getAllGenresTest() throws Exception {
+//        ProjectionFactory factory = new SpelAwareProxyProjectionFactory(); // для интерфейсов
 //        BookDto bookDto = factory.createProjection(BookDto.class);
 //        bookDto.setTitle("Harry Potter");
-//        List<BookDto> allBooks = Arrays.asList(
-//                bookDto
-//        );
-//        given(bookService.findAll()).willReturn(allBooks);
-//        mvc.perform(get("/api/v1/books")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(1)))
-//                .andExpect(jsonPath("$").isArray())
-//                .andExpect(jsonPath("$[0].title", is(allBooks.get(0).getTitle())));
-//    }
+
+        Genre fantasy = new Genre();
+        fantasy.setId(1L);
+        fantasy.setTitle("Fantasy");
+        List<Genre> allGenres = new ArrayList<>(Arrays.asList(
+                fantasy
+        ));
+        given(genreService.findAll()).willReturn(allGenres);
+
+        mvc.perform(get("/api/v1/genres")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].title", is(allGenres.get(0).getTitle())));
+    }
 }
