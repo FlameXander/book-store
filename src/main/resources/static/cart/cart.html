@@ -1,0 +1,34 @@
+<div>
+    <h3>Корзина</h3>
+    <span ng-if="cart.items.length == 0">Ваша корзина пуста</span>
+    <table class="table table-hover" cellpadding="0" cellspacing="0" ng-if="cart.items.length > 0">
+        <tr>
+            <td>Название</td>
+            <td>Жанр</td>
+            <td>Автор</td>
+            <td>Количество</td>
+            <td>Цена</td>
+        </tr>
+        <tbody>
+
+        <tr ng-repeat="oi in cart.items">
+            <td>{{oi.bookTitle}}</td>
+            <td>{{oi.genreTitle}}</td>
+            <td>{{oi.authorName}}</td>
+            <td>
+                <button class="btn btn-success" ng-click="decrementItem(oi.bookId)">-</button>
+                {{oi.quantity}}
+                <button class="btn btn-success" ng-click="incrementItem(oi.bookId)">+</button>
+                <button class="btn btn-danger" ng-click="removeItem(oi.bookId)">X</button>
+            </td>
+            <td>{{oi.pricePerItem + ' * ' + oi.quantity + ' = ' + oi.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Итоговая стоимость</td>
+            <td>{{cart.price}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" ng-show="cart.items.length > 0" ng-click="goToOrderSubmit()">Оформление заказа</button>
+</div>

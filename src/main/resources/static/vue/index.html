@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <link rel="icon" type="image/png" src="/favicon.ico"/>
+    </head>
+
+    <body>
+        <div id="app" class="container">
+            {{message}}
+            <button @click="btnClick">click me</button>
+            <navbar></navbar>
+            <books_list></books_list>
+
+        </div>
+    </body>
+
+    <script src="navbar.js"></script>
+    <script src="books_list.js"></script>
+    <script src="index.js"></script>
+</html>

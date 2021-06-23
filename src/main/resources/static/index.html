@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+
+    <link rel="icon" type="image/png" src="/favicon.ico"/>
+</head>
+
+<body>
+
+<div class="container">
+    <div ng-controller="indexController">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li>
+                        <img src="autmun-logo.jpg" height="40px" width="30px"/>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/" style="font-weight: bold;">Spring Books Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/books">Каталог</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/orders" ng-show="isUserLoggedIn()">Мои заказы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/cart">Корзина</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/admin">(demo) Админ. панель</a>
+                    </li>
+                    <li class="nav-item" ng-show="!isUserLoggedIn()">
+                        <form class="align-middle" style="vertical-align: center" ng-submit="tryToAuth()">
+                            <div class="input-group input-group-sm">
+                                <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
+                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                                <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
+                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                                <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
+                                        style="margin-left: 10px;" type="submit">Войти
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
+                    </li>
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                        <span>{{currentUserName}}</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Spring Book Store</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Каталог</li>
+        </ol>
+    </nav>
+
+    <ng-view></ng-view>
+
+    <script src="index.js"></script>
+    <script src="about/about.js"></script>
+    <script src="store/store.js"></script>
+    <script src="cart/cart.js"></script>
+    <script src="order_confirmation/order_confirmation.js"></script>
+    <script src="order_result/order_result.js"></script>
+    <script src="orders/orders.js"></script>
+</div>
+</body>
+</html>
