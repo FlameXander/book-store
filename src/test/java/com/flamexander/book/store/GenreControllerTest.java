@@ -62,8 +62,11 @@ public class GenreControllerTest {
         ));
         given(genreRepository.findAll()).willReturn(allGenres);
 
-        mvc.perform(get("/api/v1/genres")
-                .contentType(MediaType.APPLICATION_JSON))
+        mvc
+                .perform(
+                        get("/api/v1/genres")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(1)))

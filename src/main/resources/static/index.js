@@ -67,21 +67,42 @@
         if ($localStorage.bookStoreUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.bookStoreUser.token;
         }
+
+        if ($localStorage.bookStoreCartId) {
+        } else {
+            const contextPath = 'http://localhost:8189/store';
+            $http({
+                url: contextPath + '/api/v1/cart/generate',
+                method: 'GET'
+            }).then(function (response) {
+                $localStorage.bookStoreCartId = response.data.value;
+            });
+        }
     }
 })();
 
-angular.module('app').controller('indexController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8189/store';
-    console.log(1);
+
+    $scope.mergeCarts = function () {
+        $http({
+            url: contextPath + '/api/v1/cart/merge',
+            method: 'GET',
+            params: {
+                'cartId': $localStorage.bookStoreCartId
+            }
+        }).then(function (response) {
+        });
+    }
+
     $scope.tryToAuth = function () {
-        console.log(1);
         $http.post(contextPath + '/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.bookStoreUser = {username: $scope.user.username, token: response.data.token};
 
-                    $scope.currentUserName = $scope.user.username;
+                    $scope.mergeCarts();
 
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -105,7 +126,7 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
         $http.defaults.headers.common.Authorization = '';
     };
 
-    $scope.isUserLoggedIn = function () {
+    $rootScope.isUserLoggedIn = function () {
         if ($localStorage.bookStoreUser) {
             return true;
         } else {

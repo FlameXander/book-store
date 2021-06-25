@@ -55,7 +55,8 @@ public class SecurityTest {
                 post("/auth")
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+                .andExpect(status().isOk())
+                .andReturn();
 
         String token = result.getResponse().getContentAsString();
         token = token.replace("{\"token\":\"", "").replace("\"}", "");

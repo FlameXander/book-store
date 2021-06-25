@@ -1,10 +1,13 @@
-angular.module('app').controller('cartController', function ($scope, $http, $location) {
+angular.module('app').controller('cartController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8189/store';
 
     $scope.cartContentRequest = function () {
         $http({
             url: contextPath + '/api/v1/cart',
-            method: 'GET'
+            method: 'GET',
+            params: {
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
             $scope.cart = response.data;
         });
@@ -12,8 +15,12 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
 
     $scope.decrementItem = function (bookId) {
         $http({
-            url: contextPath + '/api/v1/cart/dec/' + bookId,
-            method: 'GET'
+            url: contextPath + '/api/v1/cart/dec',
+            method: 'GET',
+            params: {
+                bookId: bookId,
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
             $scope.cartContentRequest();
         });
@@ -21,8 +28,12 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
 
     $scope.removeItem = function (bookId) {
         $http({
-            url: contextPath + '/api/v1/cart/remove/' + bookId,
-            method: 'GET'
+            url: contextPath + '/api/v1/cart/remove',
+            method: 'GET',
+            params: {
+                bookId: bookId,
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
             $scope.cartContentRequest();
         });
@@ -30,8 +41,12 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
 
     $scope.incrementItem = function (bookId) {
         $http({
-            url: contextPath + '/api/v1/cart/add/' + bookId,
-            method: 'GET'
+            url: contextPath + '/api/v1/cart/add',
+            method: 'GET',
+            params: {
+                bookId: bookId,
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
             $scope.cartContentRequest();
         });

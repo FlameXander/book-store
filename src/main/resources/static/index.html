@@ -26,7 +26,7 @@
                         <img src="autmun-logo.jpg" height="40px" width="30px"/>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!/" style="font-weight: bold;">Spring Books Store</a>
+                        <a class="nav-link" href="#!/" style="font-weight: bold;">Spring Book Store</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/books">Каталог</a>
@@ -37,12 +37,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#!/cart">Корзина</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#!/admin">(demo) Админ. панель</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#!/admin">(demo) Админ. панель</a>-->
+<!--                    </li>-->
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
-                        <form class="align-middle" style="vertical-align: center" ng-submit="tryToAuth()">
-                            <div class="input-group input-group-sm">
+                        <form class="align-middle" ng-submit="tryToAuth()">
+                            <div class="input-group input-group-sm" style="padding: 4px;">
                                 <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
                                        aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
 
@@ -52,26 +52,19 @@
                                 <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
                                         style="margin-left: 10px;" type="submit">Войти
                                 </button>
+                                <button id="navRegistration" class="btn btn-outline-warning btn-sm" disabled
+                                        style="margin-left: 10px;" type="submit">Регистрация
+                                </button>
                             </div>
                         </form>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
                         <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
-                    </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
-                        <span>{{currentUserName}}</span>
                     </li>
                 </ul>
             </div>
         </nav>
     </div>
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Spring Book Store</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Каталог</li>
-        </ol>
-    </nav>
 
     <ng-view></ng-view>
 

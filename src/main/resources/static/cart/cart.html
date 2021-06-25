@@ -1,5 +1,12 @@
 <div>
-    <h3>Корзина</h3>
+    <p></p>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Spring Book Store</li>
+            <li class="breadcrumb-item active" aria-current="page">Корзина</li>
+        </ol>
+    </nav>
+    <p></p>
     <span ng-if="cart.items.length == 0">Ваша корзина пуста</span>
     <table class="table table-hover" cellpadding="0" cellspacing="0" ng-if="cart.items.length > 0">
         <tr>
@@ -24,11 +31,16 @@
             <td>{{oi.pricePerItem + ' * ' + oi.quantity + ' = ' + oi.price}}</td>
         </tr>
         <tr>
+            <td>Итого</td>
             <td></td>
-            <td>Итоговая стоимость</td>
-            <td>{{cart.price}}</td>
+            <td></td>
+            <td></td>
+            <td>{{cart.sum}}</td>
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary" ng-show="cart.items.length > 0" ng-click="goToOrderSubmit()">Оформление заказа</button>
+    <div ng-show="cart.items.length > 0 && !isUserLoggedIn()" class="alert alert-warning" role="alert">
+        Для оформления заказа Вам необходимо войти в свою учетную запись
+    </div>
+    <button class="btn btn-primary" ng-show="cart.items.length > 0 && isUserLoggedIn()" ng-click="goToOrderSubmit()">Оформление заказа</button>
 </div>

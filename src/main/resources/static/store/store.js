@@ -1,12 +1,9 @@
-angular.module('app').controller('booksController', function ($scope, $http) {
+angular.module('app').controller('booksController', function ($scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8189/store';
 
     let selectedGenres = [];
 
     $scope.fillTable = function (pageIndex = 1) {
-        if ($scope.xxx != null) {
-            console.log($scope.xxx);
-        }
         $http({
             url: contextPath + '/api/v1/books',
             method: 'GET',
@@ -19,16 +16,20 @@ angular.module('app').controller('booksController', function ($scope, $http) {
             }
         }).then(function (response) {
             $scope.BooksPage = response.data;
+            console.log($scope.BooksPage);
             $scope.PaginationArray = $scope.generatePagesIndexes(1, $scope.BooksPage.totalPages);
         });
     };
 
-    $scope.addToCartFunction = function (book) {
+    $scope.addToCart = function (bookId) {
         $http({
-            url: contextPath + '/api/v1/cart/add/' + book.id,
-            method: "GET"
+            url: contextPath + '/api/v1/cart/add',
+            method: 'GET',
+            params: {
+                bookId: bookId,
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
-            console.log('added');
         });
     }
 
@@ -40,15 +41,6 @@ angular.module('app').controller('booksController', function ($scope, $http) {
             $scope.GenresList = response.data;
         });
     };
-
-    $scope.addToCart = function (productId) {
-        $http({
-            url: contextPath + '/api/v1/cart/add/' + productId,
-            method: 'GET'
-        }).then(function (response) {
-            console.log('ok');
-        });
-    }
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
         let arr = [];
@@ -62,8 +54,7 @@ angular.module('app').controller('booksController', function ($scope, $http) {
         var idx = selectedGenres.indexOf(genreId);
         if (idx > -1) {
             selectedGenres.splice(idx, 1);
-        }
-        else {
+        } else {
             selectedGenres.push(genreId);
         }
     }

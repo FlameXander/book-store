@@ -1,5 +1,12 @@
 <div>
-    <h3>Ваш заказ</h3>
+    <p></p>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Spring Book Store</li>
+            <li class="breadcrumb-item active" aria-current="page">Подтверждение заказа</li>
+        </ol>
+    </nav>
+    <p></p>
     <table class="table table-hover" cellpadding="0" cellspacing="0">
         <tr>
             <td>Название</td>
@@ -18,9 +25,11 @@
             <td>{{oi.pricePerItem + ' * ' + oi.quantity + ' = ' + oi.price}}</td>
         </tr>
         <tr>
+            <td>Итого</td>
             <td></td>
-            <td>Итоговая стоимость</td>
-            <td>{{cart.price}}</td>
+            <td></td>
+            <td></td>
+            <td>{{cart.sum}}</td>
         </tr>
         </tbody>
     </table>
@@ -30,6 +39,7 @@
             <label for="filterTitle">Адрес доставки</label>
             <input class="form-control" type="text" ng-model="order_info.address" id="filterTitle">
         </div>
+        <p></p>
         <div>
             <button class="btn btn-success" type="submit">Оформить заказ</button>
         </div>

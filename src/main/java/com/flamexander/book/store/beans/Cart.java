@@ -38,7 +38,7 @@ public class Cart {
         return false;
     }
 
-    public void decrementProduct(Long id) {
+    public void decrementBook(Long id) {
         Iterator<OrderItemDto> iter = items.iterator();
         while (iter.hasNext()) {
             OrderItemDto o = iter.next();
@@ -51,6 +51,11 @@ public class Cart {
                 return;
             }
         }
+    }
+
+    public void removeBook(Long id) {
+        items.removeIf(i -> i.getBookId().equals(id));
+        recalculate();
     }
 
     public void addToCart(Book book) {

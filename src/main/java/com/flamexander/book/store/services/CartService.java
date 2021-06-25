@@ -27,9 +27,15 @@ public class CartService {
         save(cartId, cart);
     }
 
-    public void decrementProduct(String cartId, Long productId) {
+    public void decrementBook(String cartId, Long bookId) {
         Cart cart = getCurrentCart(cartId);
-        cart.decrementProduct(productId);
+        cart.decrementBook(bookId);
+        save(cartId, cart);
+    }
+
+    public void removeBook(String cartId, Long bookId) {
+        Cart cart = getCurrentCart(cartId);
+        cart.removeBook(bookId);
         save(cartId, cart);
     }
 

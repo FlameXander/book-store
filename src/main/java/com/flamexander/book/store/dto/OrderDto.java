@@ -10,10 +10,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
+    private String address;
     private BigDecimal price;
 
     public OrderDto(Order o) {
         this.id = o.getId();
+        this.address = o.getAddress();
         this.price = o.getPrice();
     }
 }

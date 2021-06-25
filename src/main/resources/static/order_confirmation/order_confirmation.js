@@ -1,10 +1,13 @@
-angular.module('app').controller('orderConfirmationController', function ($scope, $http, $location) {
+angular.module('app').controller('orderConfirmationController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8189/store';
 
     $scope.cartContentRequest = function () {
         $http({
             url: contextPath + '/api/v1/cart',
-            method: 'GET'
+            method: 'GET',
+            params: {
+                cartName: $localStorage.bookStoreCartId
+            }
         }).then(function (response) {
             $scope.cart = response.data;
         });

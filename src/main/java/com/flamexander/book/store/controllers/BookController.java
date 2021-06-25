@@ -38,7 +38,7 @@ public class BookController {
         if (page < 1) {
             page = 1;
         }
-        return bookService.findAll(new BookFilter(requestParams).getSpec(), page - 1, 20);
+        return bookService.findAll(new BookFilter(requestParams).getSpec(), page - 1, 8);
     }
 
     @GetMapping("/{id}")

@@ -1,5 +1,12 @@
 <div>
     <p></p>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Spring Book Store</li>
+            <li class="breadcrumb-item active" aria-current="page">Каталог</li>
+        </ol>
+    </nav>
+    <p></p>
     <div class="row g-2">
         <div class="col-6 col-md-2">
             <form novalidate ng-submit="fillTable()">
@@ -26,17 +33,9 @@
                             {{g.title}}
                         </label>
                     </div>
-
                 </div>
-<!--                <div>-->
-<!--                    <label for="filterGenreId">Жанр</label>-->
-<!--                    <select class="form-control" ng-model="filter.genre_id" id="filterGenreId">-->
-<!--                        <option>Любой</option>-->
-<!--                        <option value="{{g.id}}" ng-repeat="g in GenresList">{{g.title}}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
                 <p></p>
-                <button class="btn btn-outline-warning btn-sm" type="submit">Применить</button>
+                <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить</button>
             </form>
         </div>
         <div class="col-sm-6 col-md-10">
@@ -44,7 +43,6 @@
                 <tr>
                     <td>Название</td>
                     <td>Жанр</td>
-                    <td>Описание</td>
                     <td>Цена</td>
                     <td>Год издания</td>
                     <td>Автор</td>
@@ -54,12 +52,11 @@
                 <tr ng-repeat="b in BooksPage.content">
                     <td>{{b.title}}</td>
                     <td>{{b.genre}}</td>
-                    <td>{{b.description}}</td>
                     <td>{{b.price}}</td>
                     <td>{{b.publishYear}}</td>
                     <td>{{b.authorName}}</td>
                     <td>
-                        <button class="btn btn-outline-warning to-cart-btn btn-sm" ng-click="addToCartFunction(b)">В корзину</button>
+                        <button class="btn btn-outline-warning to-cart-btn btn-sm" ng-click="addToCart(b.id)">В корзину</button>
                     </td>
                 </tr>
                 </tbody>
@@ -67,8 +64,17 @@
 
             <nav aria-label="Page navigation">
                 <ul class="pagination">
+                    <li class="page-item" ng-show="BooksPage.number > 0">
+                        <a class="page-link" ng-click="fillTable(0)">В начало</a>
+                    </li>
+
                     <li class="page-item" ng-repeat="pageIndex in PaginationArray">
-                        <a class="page-link" ng-click="fillTable(pageIndex)">{{pageIndex}}</a>
+                        <a ng-show="BooksPage.number != pageIndex - 1" class="page-link" ng-click="fillTable(pageIndex)">{{pageIndex}}</a>
+                        <a ng-show="BooksPage.number == pageIndex - 1" style="font-weight: bold;" class="page-link" ng-click="fillTable(pageIndex)">{{pageIndex}}</a>
+                    </li>
+
+                    <li class="page-item" ng-show="BooksPage.number < BooksPage.totalPages - 1">
+                        <a class="page-link" ng-click="fillTable(BooksPage.totalPages)">В конец</a>
                     </li>
                 </ul>
             </nav>

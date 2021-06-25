@@ -22,7 +22,6 @@ public class FullServerRunTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    // @WithMockUser(username = "Bob", roles = "USER")
     public void fullRestTest() {
         // Spring page class ...
         List<Genre> genres = restTemplate.getForObject("/api/v1/genres", List.class);
